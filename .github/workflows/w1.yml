@@ -1,0 +1,33 @@
+name: create_custom_windows_image
+
+on: [workflow_dispatch]
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  BUILD-CUSTOM-IMAGE:
+    runs-on: ubuntu-latest    
+    steps:
+    - name: CHECKOUT
+      uses: actions/checkout@v2
+  
+    - name: AZURE LOGIN 
+      uses: azure/login@v1
+      with:
+        client-id: 'd6ae93fb-01da-49b0-9d01-48ff118763e7'
+        tenant-id: '72f988bf-86f1-41af-91ab-2d7cd011db47'
+        subscription-id: 'd178c7c4-ffb7-467e-a397-042c1d428092'
+
+    - name: Create custom VM image
+      id: imageBuilder    
+      uses: azure/build-vm-image@v0
+      with:        
+        resource-group-name: 'aib1'
+        managed-identity: 'imageidentity'
+        location: 'centralus'
+        vm-size: 'Standard_D4_v4'
+        source-os-type: 'Windows'
+        source-image-type: 'platformImage'
+        source-image: MicrosoftWindowsDesktop:office-365:21h1-evd-o365pp:latest
