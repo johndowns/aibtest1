@@ -26,7 +26,7 @@ jobs:
       with:        
         resource-group-name: 'aib1'
         managed-identity: 'imageidentity'
-        location: 'westcentralus'
+        location: 'centralindia'
         vm-size: 'Standard_D4_v4'
         source-os-type: 'Windows'
         source-image-type: 'platformImage'
